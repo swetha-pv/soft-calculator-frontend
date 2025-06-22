@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Soft Calculator 🌸</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="display" placeholder="3 + 5 * 2" />
+    <button class="equal" onclick="calculate()">=</button>
+    <div id="result">Result: </div>
+  </div>
+
+  <script>
+    async function calculate() {
+      const expr = document.getElementById("display").value;
+      const response = await fetch("http://localhost:8080/api/calculate", {
+        method: "POST",
+        headers: { "Content-Type": "text/plain" },
+        body: expr
+      });
+      const text = await response.text();
+      document.getElementById("result").innerText = "Result: " + text;
+    }
+  </script>
+</body>
+</html>
